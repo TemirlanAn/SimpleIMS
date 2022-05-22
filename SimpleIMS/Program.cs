@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 
 using SimpleIMS.Data;
+using SimpleIMS.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +9,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<SimpleIMSDbContext>(opt => 
 	opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
 var app = builder.Build();
 

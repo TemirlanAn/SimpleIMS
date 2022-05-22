@@ -1,0 +1,28 @@
+﻿@model ProductListViewModel
+@{
+
+}
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Description</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">Price</th>
+    </tr>
+  </thead>
+  <tbody>
+    @foreach (var product in Model.Products)
+    {
+        <tr>
+          <th scope="row">@product.Id</th>
+          <th scope="row">@product.Name</th>
+          <th scope="row">@product.Description</th>
+          <th scope="row">@product.Quantity</th>
+          <th scope="row">@product.Price</th>
+        </tr>
+    }
+  </tbody>
+</table>
