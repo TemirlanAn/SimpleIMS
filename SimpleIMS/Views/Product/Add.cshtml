@@ -1,0 +1,31 @@
+﻿@model ProductViewModel
+
+<form method="post" asp-controller="Product" asp-action="Edit">
+  <div asp-validation-summary="ModelOnly"></div>
+  <div class="mb-3">
+    <label asp-for="Name" class="form-label"></label>
+    <input type="text" asp-for="Name" class="form-control">
+    <span asp-validation-for="Name"/>
+  </div>
+  <div class="mb-3">
+    <label asp-for="CategoryId" class="form-label"></label>
+    <select class="form-select" asp-for="CategoryId" asp-items="Model.Categories"></select>
+    <span asp-validation-for="CategoryId"/>
+  </div>
+  <div class="mb-3">
+    <label asp-for="Quantity" class="form-label"></label>
+    <input type="number" asp-for="Quantity" class="form-control">
+    <span asp-validation-for="Quantity"/>
+  </div>
+  <div class="mb-3">
+    <label asp-for="Price" class="form-label"></label>
+    <input type="number" asp-for="Price" class="form-control">
+    <span asp-validation-for="Price"/>
+  </div>
+  <div class="mb-3">
+    <label asp-for="Description" class="form-label"></label>
+    <textarea class="form-control" asp-for="Description"></textarea>
+    <span asp-validation-for="Description"/>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>

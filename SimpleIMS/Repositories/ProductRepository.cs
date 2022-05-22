@@ -8,8 +8,8 @@ namespace SimpleIMS.Repositories
 	public interface IProductRepository
 	{
 		Task<List<Product>> GetProductsAsync();
-		Task<Product> GetProductByIdAsync(int id);
-		Task<Product> GetProductByNameAsync(string name);
+		Task<Product?> GetProductByIdAsync(int id);
+		Task<Product?> GetProductByNameAsync(string name);
 		Task AddProductAsync(Product product);
 		Task UpdateProductAsync(Product product);
 		Task DeleteProductAsync(int id);
@@ -23,22 +23,28 @@ namespace SimpleIMS.Repositories
 		{
 			_dbContext = dbContext;
 		}
-		public Task AddProductAsync(Product product)
+		public async Task AddProductAsync(Product product)
 		{
-			throw new NotImplementedException();
+			_dbContext.Products.Add(product);
+			await _dbContext.SaveChangesAsync();
 		}
 
-		public Task DeleteProductAsync(int id)
+		public async Task DeleteProductAsync(int id)
 		{
-			throw new NotImplementedException();
+			var product = await _dbContext.Products.FindAsync(id);
+			if (product != null)
+			{
+				_dbContext.Products.Remove(product);
+				await _dbContext.SaveChangesAsync();
+			}
 		}
 
-		public Task<Product> GetProductByIdAsync(int id)
+		public async Task<Product?> GetProductByIdAsync(int id)
 		{
-			throw new NotImplementedException();
+			return await _dbContext.Products.FindAsync(id);
 		}
 
-		public Task<Product> GetProductByNameAsync(string name)
+		public Task<Product?> GetProductByNameAsync(string name)
 		{
 			throw new NotImplementedException();
 		}
@@ -48,9 +54,10 @@ namespace SimpleIMS.Repositories
 			return await _dbContext.Products.Include(p => p.Category).ToListAsync();
 		}
 
-		public Task UpdateProductAsync(Product product)
+		public async Task UpdateProductAsync(Product product)
 		{
-			throw new NotImplementedException();
+			_dbContext.Products.Update(product);
+			await _dbContext.SaveChangesAsync();
 		}
 	}
 }
