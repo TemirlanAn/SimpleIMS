@@ -28,24 +28,30 @@ namespace SimpleIMS.Repositories
 			throw new NotImplementedException();
 		}
 
-		public Task DeleteCategoryAsync(int id)
+		public async Task DeleteCategoryAsync(int id)
 		{
-			throw new NotImplementedException();
+			var category = await _dbContext.Categories.FindAsync(id);
+			if (category is not null)
+			{
+				_dbContext.Categories.Remove(category);
+				await _dbContext.SaveChangesAsync();
+			}
 		}
 
 		public async Task<List<Category>> GetCategoriesAsync()
 		{
-			return await _dbContext.Categories.ToListAsync();
+			return await _dbContext.Categories.Include(p => p.Products).ToListAsync();
 		}
 
-		public Task<Category?> GetCategoryByIdAsync(int id)
+		public async Task<Category?> GetCategoryByIdAsync(int id)
 		{
-			throw new NotImplementedException();
+			return await _dbContext.Categories.FindAsync(id);
 		}
 
-		public Task UpdateCategoryAsync(Category product)
+		public async Task UpdateCategoryAsync(Category category)
 		{
-			throw new NotImplementedException();
+			_dbContext.Update(category);
+			await _dbContext.SaveChangesAsync();
 		}
 	}
 }

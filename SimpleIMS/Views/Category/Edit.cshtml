@@ -1,0 +1,12 @@
+﻿@model CategoryViewModel
+
+<form method="post" asp-controller="Category" asp-action="Edit">
+  <div asp-validation-summary="ModelOnly"></div>
+  <input type="hidden" asp-for=Id value=@Model.Id/>
+  <div class="mb-3">
+    <label asp-for="Name" class="form-label"></label>
+    <input type="text" asp-for="Name" class="form-control">
+    <span asp-validation-for="Name"/>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
